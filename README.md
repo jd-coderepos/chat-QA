@@ -30,10 +30,17 @@ This project enables you to chat with your PDFs, TXT files, or Docx files entire
    ollama pull nomic-embed-text
    ollama pull llama3.2:3b
    ```
+5. After cloning the repository, create two folders named "uploads" and "vec-index" in the code directory.
 
 ## Usage
 
 1. Run the Streamlit app:
+
+   ```sh
+   ollama run llama3.2
+   ```
+
+2. Run the Streamlit app:
    ```
    python -m streamlit run local_llama_v3.py
    ```
