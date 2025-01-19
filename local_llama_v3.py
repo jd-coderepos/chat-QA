@@ -16,14 +16,19 @@ from ollama import generate
 
 os.environ["HAYSTACK_TELEMETRY_ENABLED"] = "False"
 
-
+# this function is designed to create and return an instance of a ChromaDocumentStore
 def get_doc_store():
     return ChromaDocumentStore(
         collection_name="mydocs", persist_path="./vec-index", distance_function="cosine"
     )
 
 
+
+
 def get_context(query):
+    """this function is designed to retrieve and return context (relevant information) from a document store based on a given search query. 
+        It utilizes a pipeline that performs text embedding and document retrieval. 
+    """
     document_store = get_doc_store()
 
     query_pipeline = Pipeline()
@@ -45,7 +50,13 @@ def get_context(query):
     return final_context
 
 
+
 def indexing_pipe(filename):
+    """function indexing_pipe(filename) is part of a document processing pipeline that reads a file,
+    processes it, and then indexes the resulting documents into a ChromaDocumentStore. 
+    the process involves several steps, including converting the file to a document format, cleaning the content,
+    splitting the document, embedding it, and finally writing it to the document store.
+    """
     document_store = get_doc_store()
 
     pipeline = Pipeline()
@@ -79,7 +90,13 @@ def indexing_pipe(filename):
     pipeline.run({"converter": {"sources": [Path(file_path)]}})
 
 
+
+
+
 def invoke_ollama(user_input):
+    """The invoke_ollama function is designed to process user input and interact with a conversational AI model
+        e.g., a version of LLaMA). It also manages the chat interface and tracks the conversation state. 
+    """
     st.session_state.messages.append({"role": "user", "content": user_input})
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
@@ -110,7 +127,6 @@ def invoke_ollama(user_input):
     data = {
         "prompt": prompt_wrapper,
         "model": "llama3.2:3b",
-        "format": "json",
         "stream": True,
         "options": {"top_p": 0.05, "top_k": 5},
     }
@@ -131,18 +147,18 @@ def invoke_ollama(user_input):
 
     st.session_state.messages.append({"role": "assistant", "content": s})
 
-
+#clear_convo function is designed to clear the conversation history
 def clear_convo():
     st.session_state["messages"] = []
 
-
+#init function is designed to initialize the Streamlit app and set the page configuration
 def init():
     st.set_page_config(page_title="Local Llama", page_icon=":robot_face: ")
     st.sidebar.title("Local Llama")
     if "messages" not in st.session_state:
         st.session_state["messages"] = []
 
-
+#main function
 if __name__ == "__main__":
     init()
 
@@ -154,17 +170,17 @@ if __name__ == "__main__":
     )
 
     # display on sidebar all files within uploads dir
-    # st.sidebar.markdown("## Uploaded Files")
-    # uploaded_files = os.listdir("uploads")
-    # for f in uploaded_files:
-    #     st.sidebar.markdown(f)
-    # st.sidebar.info(
-    #     """This application stores uploaded files in the 'uploads' directory upon upload and then indexes them into a 
-    #                 locally persisted Chroma Document Store so that you may re-use your documentation as necessary."""
-    # )
+    st.sidebar.markdown("## Uploaded Files")
+    uploaded_files = os.listdir("uploads")
+    for f in uploaded_files:
+        st.sidebar.markdown(f)
+    st.sidebar.info(
+        """This application stores uploaded files in the 'uploads' directory upon upload and then indexes them into a 
+                    locally persisted Chroma Document Store so that you may re-use your documentation as necessary."""
+    )
     clicked = st.button("Upload File", key="Upload")
     if file and clicked:
-        with st.spinner("Wait for it..."):
+        with st.spinner("Please wait..."):
             indexing_pipe(file)
         st.success("Indexed {0}!".format(file.name))
     user_input = st.chat_input("Say something")
