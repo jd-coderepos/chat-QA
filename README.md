@@ -1,6 +1,6 @@
 # Local Llama
 
-This project enables you to chat with your PDFs, TXT files, or Docx files entirely offline, free from OpenAI dependencies. It's an evolution of the gpt_chatwithPDF project, now leveraging local LLMs for enhanced privacy and offline functionality.
+This project enables you to chat with your PDFs, TXT files, or Docx files entirely offline, free from OpenAI dependencies. 
 
 ## Features
 
