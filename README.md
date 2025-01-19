@@ -54,12 +54,3 @@ This project enables you to chat with your PDFs, TXT files, or Docx files entire
 4. Response Generation: Ollama generates responses based on the retrieved context and chat history.
 
 
-## License
-
-This project is licensed under the Apache 2.0 License.
-
-## Acknowledgements
-
-- Ollama team for their excellent local LLM solution
-- Haystack for providing the RAG framework
-- The-Bloke for the GGUF models
