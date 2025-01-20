@@ -2,9 +2,17 @@
 
 This project enables you to chat with your PDFs, TXT files, or Docx files entirely offline, free from OpenAI dependencies. 
 
+## Demo
+
+[![Watch the Video](https://img.youtube.com/vi/nHJqqcTSMbY/0.jpg)](https://youtu.be/nHJqqcTSMbY)
+
+## Requirements
+
+- Python >= 3.10
+- [Ollama](https://ollama.dev/download)
+
 ## Features
 
-- Offline operation: Run in airplane mode
 - Local LLM integration: Uses Ollama for improved performance
 - Multiple file format support: PDF, TXT, DOCX, MD
 - Persistent vector database: Reusable indexed documents
@@ -13,7 +21,7 @@ This project enables you to chat with your PDFs, TXT files, or Docx files entire
 ## New Updates
 
 - Ollama integration for significant performance improvements
-- Uses nomic-embed-text and llama3:8b models (can be changed to your liking)
+- Uses nomic-embed-text and llama3.2:3b models (can be changed to your liking)
 - Upgraded to Haystack 2.0
 - Persistent Chroma vector database to enable re-use of previously updloaded docs
 
