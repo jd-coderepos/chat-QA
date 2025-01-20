@@ -9,7 +9,7 @@ This project enables you to chat with your PDFs, TXT files, or Docx files entire
 ## Requirements
 
 - Python >= 3.10
-- [Ollama](https://ollama.dev/download)
+- [Ollama](https://ollama.ai/download)
 
 ## Features
 
