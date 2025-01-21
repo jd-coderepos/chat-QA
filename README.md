@@ -61,4 +61,8 @@ This project enables you to chat with your PDFs, TXT files, or Docx files entire
 3. Query Processing: User queries are embedded and relevant document chunks are retrieved.
 4. Response Generation: Ollama generates responses based on the retrieved context and chat history.
 
+## License
 
+This project is licensed under the [MIT License](LICENSE).
+
+You are free to use, modify, and distribute this software in accordance with the terms of the license.
