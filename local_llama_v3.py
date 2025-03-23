@@ -144,7 +144,7 @@ def invoke_ollama(user_input):
 
 # clear_convo function is designed to clear the conversation history
 def clear_convo():
-    st.session_state["messages"] = []
+    st.session_state["messages"].clear()
 
 
 # init function is designed to initialize the Streamlit app and set the page configuration
