@@ -16,6 +16,7 @@ from ollama import generate
 
 os.environ["HAYSTACK_TELEMETRY_ENABLED"] = "False"
 
+
 # this function is designed to create and return an instance of a ChromaDocumentStore
 def get_doc_store():
     return ChromaDocumentStore(
@@ -23,11 +24,9 @@ def get_doc_store():
     )
 
 
-
-
 def get_context(query):
-    """this function is designed to retrieve and return context (relevant information) from a document store based on a given search query. 
-        It utilizes a pipeline that performs text embedding and document retrieval. 
+    """this function is designed to retrieve and return context (relevant information) from a document store based on a given search query.
+    It utilizes a pipeline that performs text embedding and document retrieval.
     """
     document_store = get_doc_store()
 
@@ -43,17 +42,15 @@ def get_context(query):
     sources = [doc.meta["page_number"] for doc in result["retriever"]["documents"]]
     files = [doc.meta["file_path"] for doc in result["retriever"]["documents"]]
     final_context = [
-        f"Context: {c} (Page: {s}, File: {f})"
-        for c, s, f in zip(context, sources, files)
+        f"Context: {c} (Page: {s}, File: {f})" for c, s, f in zip(context, sources, files)
     ]
     # Uncomment for debug st.write(final_context)
     return final_context
 
 
-
 def indexing_pipe(filename):
     """function indexing_pipe(filename) is part of a document processing pipeline that reads a file,
-    processes it, and then indexes the resulting documents into a ChromaDocumentStore. 
+    processes it, and then indexes the resulting documents into a ChromaDocumentStore.
     the process involves several steps, including converting the file to a document format, cleaning the content,
     splitting the document, embedding it, and finally writing it to the document store.
     """
@@ -90,12 +87,9 @@ def indexing_pipe(filename):
     pipeline.run({"converter": {"sources": [Path(file_path)]}})
 
 
-
-
-
 def invoke_ollama(user_input):
     """The invoke_ollama function is designed to process user input and interact with a conversational AI model
-        e.g., a version of LLaMA). It also manages the chat interface and tracks the conversation state. 
+    e.g., a version of LLaMA). It also manages the chat interface and tracks the conversation state.
     """
     st.session_state.messages.append({"role": "user", "content": user_input})
     for message in st.session_state.messages:
@@ -147,27 +141,28 @@ def invoke_ollama(user_input):
 
     st.session_state.messages.append({"role": "assistant", "content": s})
 
-#clear_convo function is designed to clear the conversation history
+
+# clear_convo function is designed to clear the conversation history
 def clear_convo():
     st.session_state["messages"] = []
 
-#init function is designed to initialize the Streamlit app and set the page configuration
+
+# init function is designed to initialize the Streamlit app and set the page configuration
 def init():
     st.set_page_config(page_title="Local Llama", page_icon=":robot_face: ")
     st.sidebar.title("Local Llama")
     if "messages" not in st.session_state:
         st.session_state["messages"] = []
 
-#main function
+
+# main function
 if __name__ == "__main__":
     init()
 
-    clear_button = st.sidebar.button(
-        "Clear Conversation", key="clear", on_click=clear_convo
-    )
-    file = st.file_uploader(
-        "Choose a file to index...", type=["docx", "pdf", "txt", "md"]
-    )
+    Path("uploads").mkdir(exist_ok=True, parents=True)
+    
+    clear_button = st.sidebar.button("Clear Conversation", key="clear", on_click=clear_convo)
+    file = st.file_uploader("Choose a file to index...", type=["docx", "pdf", "txt", "md"])
 
     # display on sidebar all files within uploads dir
     st.sidebar.markdown("## Uploaded Files")
