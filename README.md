@@ -28,19 +28,29 @@ This project enables you to chat with your PDFs, TXT files, or Docx files entire
 ## Installation
 
 1. Install Ollama from https://ollama.ai/download
-2. Clone this repository
-3. Install dependencies:
+1. Clone this repository
+1. Install dependencies:
    ```
    pip install -r requirements.txt
    ```
-4. Pull required Ollama models:
+1. Start ollama:
+
+   ```sh
+   ollama serve
+   ```
+1. Pull required Ollama models:
    ```
    ollama pull nomic-embed-text
    ollama pull llama3.2:3b
    ```
-5. After cloning the repository, create two folders named "uploads" and "vec-index" in the code directory.
 
 ## Usage
+
+1. Make sure that the Ollama started:
+
+   ```sh
+   ollama serve
+   ```
 
 1. Run the Streamlit app:
 
@@ -48,11 +58,11 @@ This project enables you to chat with your PDFs, TXT files, or Docx files entire
    ollama run llama3.2
    ```
 
-2. Run the Streamlit app:
+1. Run the Streamlit app:
    ```
    python -m streamlit run local_llama_v3.py
    ```
-2. Upload your documents and start chatting!
+1. Upload your documents and start chatting!
 
 ## How It Works
 
