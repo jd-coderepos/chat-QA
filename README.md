@@ -53,12 +53,6 @@ This project enables you to chat with your PDFs, TXT files, or Docx files entire
    ```
 
 1. Run the Streamlit app:
-
-   ```sh
-   ollama run llama3.2
-   ```
-
-1. Run the Streamlit app:
    ```
    python -m streamlit run local_llama_v3.py
    ```
